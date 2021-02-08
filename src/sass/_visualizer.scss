@@ -1,0 +1,101 @@
+.visualizer {
+
+    &__canvas {
+        width: 100%;
+        height: 20rem;
+        padding: 1rem 1rem 0 1rem;   
+        margin-bottom: 1.5rem;
+        border: $border;
+    }
+
+    &__output {
+        width: 100%;
+        max-width: 40rem;
+        margin: 0 auto 1.5rem auto;
+        padding: 1.5rem;
+        padding-left: 4rem;
+        background-color: $opague-main-color;
+        border: 1px solid lighten($main-color, 30%);
+
+        h3 {
+            font-size: 1.4rem;
+        }
+    }
+
+    &__list {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    &__item {
+        flex: 1;
+        max-width: 4rem;
+        height: 100%;
+        margin: 0 0.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        transition: transform 300ms ease-in-out;
+
+        &.comparing {
+            .visualizer__item-container {
+                background-color: $opague-main-color;
+            }
+        }
+        &.swap {
+            .visualizer__item-container {
+                background-color: $swap-color;
+            }
+
+            &--left {
+                transform: translateX(150%);
+            }
+            &--right {
+                transform: translateX(-150%);
+            }
+        }
+
+
+        &-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            background-color: $main-color;
+            margin-bottom: .5rem;
+            transition: background-color $t-time ease-in-out;
+
+            p {
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin-bottom: .5rem;
+            }
+        }
+
+        h4 {
+            font-size: 1.2rem;
+        }
+    }
+
+    &__controls {
+        display: flex;
+        max-width: 40rem;
+        margin: 0 auto;
+
+        .btn {
+            flex: 1;
+            margin: 0 .25rem;
+        }
+
+        div {
+            flex: 3;
+            margin: 0 .5rem;
+            text-align: center;
+        }
+    }
+}
