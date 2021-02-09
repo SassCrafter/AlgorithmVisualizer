@@ -111,6 +111,7 @@ img {
   padding: 0.25rem;
   font-size: 1.2rem;
   transition: border-color 300ms linear;
+  -webkit-appearence: none;
 }
 .form select:hover, .form select:focus {
   outline: none;

@@ -23,12 +23,12 @@
 					<div class="topic">
 						<form class="form form--topics" id="topic-form">
 							<div class="form__group">
-								<input type="radio" name="topic" id="bubble-sort">
+								<input type="radio" name="topic" data-topic='bubbleSort' id="bubble-sort" checked>
 								<label for="bubble-sort">bubble sort</label>
 							</div>
 							<div class="form__group">
-								<input type="radio" name="topic" id="insertion-sort">
-								<label for="insertion-sort">insertion sort</label>
+								<input type="radio" name="topic" data-topic='selectionSort' id="selection-sort">
+								<label for="selection-sort">selection sort</label>
 							</div>
 							<button type="submit" class="btn btn--submit">submit</button>
 						</form>
@@ -37,17 +37,18 @@
 			</aside>
 			<section class="mobile-topic-container main-section">
 				<div class="group">
-					<form class="form form--mobile-topic" id="mobile-topic">
+					<form class="form form--mobile-topic" id="mobile-topic-form">
 							<small>topics:</small>
 					        <select>
-						        <option value="bubble-sort">bubble sort</option>
-						        <option value="selection-sort">selectio sort</option>
+					        	<!-- <option value="">pick algorithm</option> -->
+						        <option value="bubbleSort">bubble sort</option>
+						        <option value="selectionSort">selection sort</option>
 					        </select>
 					</form>
 				</div>
 			</section>
 			<div class="main__right main-section">
-				<h1 class="large" id="algrorithm-name">Bubble Sort</h1>
+				<h1 class="large" id="algorithm-name">Bubble Sort</h1>
 				<section class="inputs section main__section">
 					<div class="section__title">
 						<h2>inputs</h2>

@@ -18,5 +18,26 @@ const createStepObj = (explanation, firstVal, secondVal, action) => {
 	return obj;
 }
 
+const findCheckedInput = (inputSelector, form = null) => {
+	let inputs;
+	if (form) {
+		inputs = form.querySelectorAll(inputSelector);
+	} else {
+		inputs = document.querySelectorAll(inputSelector);
+	}
+	const checked = Array.from(inputs).find(input => input.checked);
+	return checked;
+}
 
-export {getRandomNumber, scaleValue, createStepObj};
+const updateELTextContent = (el, text) => {
+	el.textContent = text;
+}
+
+
+const updateELTextContentSelector = (selector, text) => {
+	const el = document.querySelector(selector);
+	if (el) el.textContent = text;
+}
+
+
+export {getRandomNumber, scaleValue, createStepObj, findCheckedInput, updateELTextContent, updateELTextContentSelector};

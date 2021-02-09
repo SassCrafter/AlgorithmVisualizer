@@ -119,6 +119,7 @@ img {
         padding: .25rem;
         font-size: 1.2rem;
         transition: border-color $t-time linear;
+        -webkit-appearence: none;
 
         &:hover,
         &:focus {
