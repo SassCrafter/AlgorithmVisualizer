@@ -1,0 +1,10 @@
+.mobile-topic-container {
+	width: 100%;
+	@include mq(768px) {
+		display: none;
+	}
+}
+
+.topic-container {
+
+}

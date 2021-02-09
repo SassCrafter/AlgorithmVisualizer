@@ -32,8 +32,43 @@ img {
   max-width: 100%;
 }
 
+.main-section {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
+}
+.main-section:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
 .main {
   margin-top: 2rem;
+}
+.main__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+@media screen and (min-width: 768px) {
+  .main__container {
+    flex-direction: row;
+  }
+}
+.main__left {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .main__left {
+    display: block;
+    width: 20%;
+    margin-right: 2rem;
+  }
+}
+@media screen and (min-width: 768px) {
+  .main__right {
+    width: 80%;
+  }
 }
 .main__section {
   padding: 2rem;
@@ -52,11 +87,6 @@ img {
 .main__section .section__title h2 {
   font-size: 1.4rem;
   text-transform: uppercase;
-}
-.main .container {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
 }
 
 .form {
@@ -86,6 +116,33 @@ img {
   outline: none;
   border-color: #46535e;
 }
+.form--topics .form__group {
+  display: flex;
+  align-items: center;
+}
+.form--topics label {
+  margin-left: 1rem;
+  padding-top: 0.25rem;
+}
+.form--mobile-topic {
+  display: flex;
+  align-items: center;
+}
+.form--mobile-topic small {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  text-transform: capitalize;
+}
+.form--mobile-topic select {
+  width: 100%;
+  padding: 0.75rem;
+  max-width: 100%;
+  text-transform: capitalize;
+  font-size: 1.6rem;
+}
+.form--mobile-topic select option {
+  font-size: 1.4rem;
+}
 
 .btn {
   display: inline-block;
@@ -109,7 +166,7 @@ img {
 
 .container {
   width: 95%;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   overflow: hidden;
@@ -245,4 +302,13 @@ img {
   flex: 3;
   margin: 0 0.5rem;
   text-align: center;
+}
+
+.mobile-topic-container {
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .mobile-topic-container {
+    display: none;
+  }
 }
