@@ -17,7 +17,7 @@ export default class {
 
     clearRootEl(el, className) {
         if (!el) return;
-        const elements = el.querySelectorAll(`.${className}`);
+        const elements = el.querySelectorAll(`${className}`);
         elements.forEach(el => el.remove());
     }
 

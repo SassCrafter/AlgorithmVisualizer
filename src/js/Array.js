@@ -6,6 +6,7 @@ export default class extends Component {
     constructor(hookId) {
         super(hookId);
         this.list = this.createRootEl('ul', 'visualizer__list', [{name: 'id', value: 'visualizer-list'}]);
+        this.indexesList = this.createRootEl('ul', 'visualizer__indexes', [{name: 'id', value: 'visualizer-indexes'}]);
         this.array = [];
         this.liArray = [];
         this.form = document.getElementById('visualizer-inputs-form');
@@ -35,7 +36,6 @@ export default class extends Component {
         for (let i = 0; i < len; i++) {
             this.array.push(getRandomNumber(1, 999));
         }
-        console.log(this.array);
     }
 
     renderArrayItems(parent) {
@@ -49,15 +49,23 @@ export default class extends Component {
             indexCount.textContent = idx;
             container.appendChild(liNumber);
             li.appendChild(container);
-            li.appendChild(indexCount);
+            //li.appendChild(indexCount);
             this.liArray.push(li);
             parent.appendChild(li);
         })
     }
 
+    renderArrayIndexes(parent) {
+        for (let i = 0; i < this.array.length; i++) {
+            const li = this.createElement('li', 'visualizer__index');
+            li.innerHTML = `<h5>${i}</h5>`;
+            parent.appendChild(li);
+        }
+    }
+
     compareTwoValues(firstValue, secondValue) {
-        console.log(firstValue, secondValue);
         // First remove already compared values classes;
+        if (!firstValue || !secondValue) return;
         const elementsToClear = Array.from(firstValue.parentElement.children);
         elementsToClear.forEach(el => el.classList.remove('comparing'));
         firstValue.classList.add('comparing');
@@ -65,17 +73,21 @@ export default class extends Component {
     }
 
     swapTwoElements(firstEl, secondEl) {
-        firstEl.classList.add('swap', 'swap--left');
-        secondEl.classList.add('swap', 'swap--right');
+        if (!firstEl || !secondEl) return
+        firstEl.classList.add('swap');
+        secondEl.classList.add('swap');
+        firstEl.parentElement.insertBefore(secondEl, firstEl);
         setTimeout(() => {
-            firstEl.classList.remove('swap', 'swap--left', 'comparing');
-            secondEl.classList.remove('swap', 'swap--right', 'comparing');
-            firstEl.parentElement.insertBefore(secondEl, firstEl);
-        }, 300);
+            firstEl.classList.remove('swap', 'comparing');
+            secondEl.classList.remove('swap', 'comparing');
+            
+        }, 300);  
     }
 
     render() {
-        this.clearRootEl(this.list, 'visualizer__item');
+        this.clearRootEl(this.list, '.visualizer__item');
+        this.clearRootEl(this.indexesList, '.visualizer__index');
         this.renderArrayItems(this.list);
+        this.renderArrayIndexes(this.indexesList);
     }
 }

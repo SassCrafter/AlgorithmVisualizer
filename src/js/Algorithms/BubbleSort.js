@@ -1,22 +1,17 @@
+import { createStepObj } from '../helpers/helperFunctions';
+
 export default class {
 	constructor(arr) {
 		this.arrObj = arr;
 		this.arr = arr.array;
 		this.liArray = arr.liArray;
-		//console.log(this.liArray);
-		// this.steps = [
-		// 	'Starting Bubble Sort',
-		// 	'For each pass, we will move left to right swapping adjacent elements as needed. Each pass moves the next largest element into its final position (these will be shown in green).',
-		// 	'Starting pass 0',
-		// 	'For each element moving through the list',
-		// ];
 		this.steps = [
 			{
 				explanation: 'Starting Bubble Sort',
 				action: null,
 			},
 			{
-				explanation: 'For each pass, we will move left to right swapping adjacent elements as needed. Each pass moves the next largest element into its final position (these will be shown in green).',
+				explanation: 'For each pass, we will move left to right swapping adjacent elements as needed. Each pass moves the next largest element into its final position.',
 				action: null,
 			},
 			{
@@ -30,38 +25,32 @@ export default class {
 		];
 		this.counter = 0;
 		this.sort();
-		console.log(this.steps);
 	}
 
-	sort() {
+	sort(start = 0) {
 		let swapped;
-	    console.log('sorting');
-	    const arr = this.arr;
+		const arr = this.arr;
+		let counter = arr.length - 1;
 	    do {
 	         swapped = false;
-	        for (let i = 0; i < arr.length; i++) {
-	            this.steps.push({
-	            	explanation: 'Compare elements',
-	            	firstItem: this.liArray[i],
-	            	secondItem: this.liArray[i + 1],
-	            	action: this.arrObj.compareTwoValues,
-	            });
+	        for (let i = start; i < counter; i++) {
+				this.steps.push(createStepObj('Compare elements', this.liArray[i], this.liArray[i + 1], this.arrObj.compareTwoValues));
 	            if (arr[i] > arr[i + 1]) {
-	            	this.steps.push({
-	            		explanation: 'Swap',
-	            		firstItem: this.liArray[i],
-	            		secondItem: this.liArray[i + 1],
-	            		action: this.arrObj.swapTwoElements,
-	            	});
+					this.steps.push(createStepObj('Swap', this.liArray[i], this.liArray[i + 1], this.arrObj.swapTwoElements));
 	                const temp = arr[i];
 	                arr[i] = arr[i + 1];
-	                arr[i + 1] = temp;
+					arr[i + 1] = temp;
+					const tempLi = this.liArray[i];
+					this.liArray[i] = this.liArray[i + 1];
+					this.liArray[i + 1] = tempLi;
 	                swapped = true;
-	            }
-	        }
-	        this.steps.push('Done this pass. The last element processed is now in its final position.');
-	    } while(swapped);
-	    this.steps.push('Done sorting');
-	    return arr;
+				}
+			}
+			//this.steps[counter + 4].sorted = true;
+			counter -= 1;
+			this.steps.push(createStepObj('Done this pass, moving to the next one'));
+		} while(swapped);
+		console.log(this.steps);
+		this.steps.push(createStepObj('Done sorting'));
 	}
 }

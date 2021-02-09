@@ -15,7 +15,9 @@ class App extends Component {
 	static formSubmitHandler(e) {
 		e.preventDefault();
 		const prevArr = document.getElementById('visualizer-list');
+		const prevIndexes = document.getElementById('visualizer-indexes');
 		if (prevArr) prevArr.remove();
+		if (prevIndexes) prevIndexes.remove();
 		const arr = new Array('visualizer-canvas');
 		const controls = new VisualizerControls(new BubbleSort(arr));
 	}

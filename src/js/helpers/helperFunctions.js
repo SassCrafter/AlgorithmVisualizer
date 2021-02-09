@@ -8,5 +8,15 @@ const scaleValue = (value, from, to) => {
 	return ~~(capped * scale + to[0]);
 }
 
+const createStepObj = (explanation, firstVal, secondVal, action) => {
+	const obj = {
+		explanation,
+		firstItem: firstVal,
+		secondItem: secondVal,
+		action
+	};
+	return obj;
+}
 
-export {getRandomNumber, scaleValue};
+
+export {getRandomNumber, scaleValue, createStepObj};
