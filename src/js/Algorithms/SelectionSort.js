@@ -1,9 +1,9 @@
+import Algo from './Algo';
 import { createStepObj } from '../helpers/helperFunctions';
 
-export default class {
+export default class extends Algo {
 	constructor(arr) {
-		this.arr = arr;
-		this.liArray = this.arr.liArray;
+		super(arr);
 		this.steps = [
 			{
 				explanation: 'Starting Selection Sort',
@@ -22,25 +22,31 @@ export default class {
 				action: null,
 			}
 		];
+		this.sort();
 	}
 
 
 	sort() {
+		 let arr = this.arr.array;
 		 const len = arr.length;
 	    for (let i = 0; i < len; i++) {
-	    	this.steps.push(createStepObj('Select starting point', this.liArray[i], null, ));
-	        let min = i;
+	    	this.steps.push(createStepObj('Select minimum value', this.liArray[i], null, this.selectValue.bind(this, 'orange-bg', i)));
+			let min = i;
 	        for (let j = i + 1; j < len; j++) {
+				this.steps.push(createStepObj('Comparing', this.liArray[j], null, this.selectValue.bind(this, 'selected', j)));
 	            if (arr[min] > arr[j]) {
-	                min = j;
+					min = j;
+					this.steps.push(createStepObj('Found new minimum value', this.liArray[min], null, this.selectValue.bind(this, 'orange-bg', min)));
 	            }
 	        }
 	        if (min !== i) {
 	            const temp = arr[min];
 	            arr[min] = arr[i];
-	            arr[i] = temp;
+				arr[i] = temp;
+				this.steps.push(createStepObj('Swap', this.liArray[min], null, this.swap.bind(this, min, i)));
 	        }
-	    }
+		}
+		this.steps.push(createStepObj('Finished sorting', null, null, this.doneSorting.bind(this)))
 	    return arr;
 	}
 }

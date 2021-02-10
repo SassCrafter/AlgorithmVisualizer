@@ -10,11 +10,13 @@ import '../sass/style.scss';
 
 class App extends Component {
 	static init() {
+		this.arr = new Array('visualizer-canvas');
 		this.topics = {
 			bubbleSort: BubbleSort,
 			selectionSort: SelectionSort,
 		};
 		this.topic = this.topics.bubbleSort;
+		this.controls = new VisualizerControls(new this.topic(this.arr));
 		const visualizerSettigsForm = document.getElementById('visualizer-inputs-form');
         visualizerSettigsForm.addEventListener('submit', App.formSubmitHandler);
         App.initForms();
@@ -45,13 +47,9 @@ class App extends Component {
 	}
 
 	static setup(topic) {
-		const prevArr = document.getElementById('visualizer-list');
-		const prevIndexes = document.getElementById('visualizer-indexes');
-		if (prevArr) prevArr.remove();
-		if (prevIndexes) prevIndexes.remove();
-
-		const arr = new Array('visualizer-canvas');
-		const controls = new VisualizerControls(new this.topic(arr));
+		this.arr.populate();
+		this.arr.render();
+		this.controls.reset(new this.topic(this.arr));
 	}
 
 }

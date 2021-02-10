@@ -39,5 +39,17 @@ const updateELTextContentSelector = (selector, text) => {
 	if (el) el.textContent = text;
 }
 
+const removeClasses = (className, array) => {
+	if (array) {
+		array.forEach(el => {
+			el.classList.remove(className);
+		})
+		return;
+	}
+	document.querySelectorAll(`.${className}`).forEach(el => {
+		el.classList.remove(className);
+	})
+}
 
-export {getRandomNumber, scaleValue, createStepObj, findCheckedInput, updateELTextContent, updateELTextContentSelector};
+
+export {getRandomNumber, scaleValue, createStepObj, findCheckedInput, updateELTextContent, updateELTextContentSelector, removeClasses};

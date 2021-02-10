@@ -65,6 +65,9 @@ img {
     margin-right: 2rem;
   }
 }
+.main__right {
+  width: 100%;
+}
 @media screen and (min-width: 768px) {
   .main__right {
     width: 80%;
@@ -257,6 +260,12 @@ img {
   justify-content: flex-end;
   transition: transform 300ms ease-in-out;
 }
+.visualizer__item.selected .visualizer__item-container {
+  background-color: rgba(76, 156, 223, 0.1);
+}
+.visualizer__item.orange-bg .visualizer__item-container {
+  background-color: orange;
+}
 .visualizer__item.comparing .visualizer__item-container {
   background-color: rgba(76, 156, 223, 0.1);
 }
@@ -270,7 +279,7 @@ img {
   transform: translateX(-150%);
 }
 .visualizer__item.sorted .visualizer__item-container {
-  background-color: green;
+  background-color: #9ef01a;
 }
 .visualizer__item-container {
   width: 100%;

@@ -1,5 +1,5 @@
 import Component from './helpers/Component';
-import VisualizerControls from './VisualiserControls.js';
+import VisualizerControls from './VisualiserControls';
 import { getRandomNumber, scaleValue } from './helpers/helperFunctions';
 
 export default class extends Component {
@@ -13,6 +13,10 @@ export default class extends Component {
         this.init();
         // this.form = document.getElementById('visualizer-inputs-form');
         // this.form.addEventListener('submit', this.formSubmitHandler.bind(this));
+    }
+
+    setArray(value) {
+        this.array = value;
     }
 
 
@@ -32,8 +36,15 @@ export default class extends Component {
     }
 
     populate(len) {
+        let size;
+        if (!len) {
+            size = this.form.querySelector('#array-size').value;
+        } else {
+            size = len;
+        }
         this.array = [];
-        for (let i = 0; i < len; i++) {
+        this.liArray = [];
+        for (let i = 0; i < size; i++) {
             this.array.push(getRandomNumber(1, 999));
         }
     }
@@ -45,11 +56,8 @@ export default class extends Component {
             const container = this.createElement('div', 'visualizer__item-container');
             const liNumber = this.createElement('p');
             liNumber.textContent = item;
-            const indexCount = this.createElement('h4');
-            indexCount.textContent = idx;
             container.appendChild(liNumber);
             li.appendChild(container);
-            //li.appendChild(indexCount);
             this.liArray.push(li);
             parent.appendChild(li);
         })
@@ -80,9 +88,15 @@ export default class extends Component {
         setTimeout(() => {
             firstEl.classList.remove('swap', 'comparing');
             secondEl.classList.remove('swap', 'comparing');
-            
-        }, 300);  
+        }, 300);
     }
+
+
+
+    selectValue(val) {
+        console.log(val);
+    }
+
 
     render() {
         this.clearRootEl(this.list, '.visualizer__item');

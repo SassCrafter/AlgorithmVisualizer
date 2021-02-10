@@ -1,3 +1,4 @@
+
 export default class {
 	constructor(algo) {
 		this.algo = algo;
@@ -8,6 +9,13 @@ export default class {
 		this.updateUI(this.algo.steps[0]);
 	}
 
+	reset(algorithm) {
+		this.algo = algorithm;
+		this.algoLen = this.algo.steps.length - 1;
+		this.updateUI(this.algo.steps[0]);
+		this.counter = 0;
+	}
+
 	showNextStep() {
 		this.counter += 1;
 		if (this.counter > this.algoLen) {
@@ -15,23 +23,36 @@ export default class {
 			return;
 		};
 		const currentStep = this.algo.steps[this.counter];
-		this.updateUI(currentStep, 'forward');
+		// if (currentStep.action) {
+		// 	currentStep.action()
+		// }
+		//this.updateStepsCounterUI(currentStep);
+		//this.updateUI(currentStep, 'forward');
+		this.updateUI(currentStep);
 	}
 
 	showPrevStep() {
-		const expl = this.algo.steps[this.counter].explanation;
 		let currentStep;
-		this.counter -= 1;
-		if (this.counter < 0) {
-			this.counter = 0;
-		};
-		if (expl === 'Swap') {
-			currentStep = this.algo.steps[this.counter + 1];
-		} else {
+		if (this.counter > 0) {
+			const expl = this.algo.steps[this.counter].explanation;
 			currentStep = this.algo.steps[this.counter];
-		};
-		
-		this.updateUI(currentStep, 'backwards');
+			if (currentStep.action) {
+				currentStep.action();
+			}
+		} else {
+			this.counter = 0;
+		}
+		this.counter -= 1;
+		this.updateStepsCounterUI(currentStep);
+		// if (this.counter < 0) {
+		// 	this.counter = 0;
+		// };
+		// if (expl === 'Swap') {
+		// 	currentStep = this.algo.steps[this.counter + 1];
+		// } else {
+		// 	currentStep = this.algo.steps[this.counter + 1];
+		// };
+		//this.updateUI(currentStep, 'backwards');
 	}
 
 	goToStart() {
@@ -51,31 +72,44 @@ export default class {
 	playAlgoToStart(start, end) {
 		for (let i = start; i > end; i--) {
 			const currentStep = this.algo.steps[i];
-			this.updateUI(currentStep, 'backwards');
+			this.updateUI(currentStep);
 		}
 	}
 
 	playAlgoToEnd(start, end) {
-		for (let i = start; i < end; i++) {
+		for (let i = start; i < end - 1; i++) {
 			const currentStep = this.algo.steps[i];
-			this.updateUI(currentStep, 'forward');
+			//console.log(currentStep);
+			this.updateUI(currentStep);
 		}
 	}
 
-	updateUI(stepsObj, direction) {
-		document.getElementById('explanation').textContent = stepsObj.explanation;
+	updateStepsCounterUI(stepObj) {
+		document.getElementById('explanation').textContent = stepObj.explanation;
 		document.getElementById('steps-count').textContent = `${this.counter}/${this.algoLen}`;
-		if (stepsObj.sorted) {
-			stepsObj.firstItem.classList.add('sorted');
-		}
-		if (stepsObj.action) {
-			if (direction === 'forward') {
-				stepsObj.action(stepsObj.firstItem, stepsObj.secondItem);
-			} else if (direction === 'backwards') {
-				stepsObj.action(stepsObj.secondItem, stepsObj.firstItem)
-			}
+	}
+
+	updateUI(stepObj) {
+		this.updateStepsCounterUI(stepObj);
+		if (stepObj.action) {
+			stepObj.action();
 		}
 	}
+
+	// updateUI(stepsObj, direction) {
+	// 	document.getElementById('explanation').textContent = stepsObj.explanation;
+	// 	document.getElementById('steps-count').textContent = `${this.counter}/${this.algoLen}`;
+	// 	if (stepsObj.sorted) {
+	// 		stepsObj.firstItem.classList.add('sorted');
+	// 	}
+	// 	if (stepsObj.action) {
+	// 		if (direction === 'forward') {
+	// 			stepsObj.action(stepsObj.firstItem, stepsObj.secondItem);
+	// 		} else if (direction === 'backwards') {
+	// 			stepsObj.action(stepsObj.secondItem, stepsObj.firstItem)
+	// 		}
+	// 	}
+	// }
 
 
 	clickHandler(e) {
