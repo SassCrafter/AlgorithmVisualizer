@@ -30,6 +30,10 @@
 								<input type="radio" name="topic" data-topic='selectionSort' id="selection-sort">
 								<label for="selection-sort">selection sort</label>
 							</div>
+							<div class="form__group">
+								<input type="radio" name="topic" data-topic='insertionSort' id="insertion-sort">
+								<label for="insertion-sort">insertion sort</label>
+							</div>
 							<button type="submit" class="btn btn--submit">submit</button>
 						</form>
 					</div>
@@ -43,6 +47,7 @@
 					        	<!-- <option value="">pick algorithm</option> -->
 						        <option value="bubbleSort">bubble sort</option>
 						        <option value="selectionSort">selection sort</option>
+						        <option value="insertionSort">insertion sort</option>
 					        </select>
 					</form>
 				</div>
@@ -90,21 +95,27 @@
 						</div>
 					</div>
 					<div class="visualizer__controls" id="visualizer-controls">
-						<button class="btn btn--control" data-step='goToStart' id="to-start-btn">
+						<div class="buttons">
+							<button class="btn btn--control" data-step='goToStart' id="to-start-btn">
 							&lt;&lt;
-						</button>
-						<button class="btn btn--control" data-step='showPrevStep' id="prev-btn">
-							&lt;
-						</button>
+							</button>
+							<!-- <button class="btn btn--control" data-step='showPrevStep' id="prev-btn">
+								&lt;
+							</button> -->
+							<button class="btn btn--control" data-step='goToEnd' id="next-btn">
+								&gt;
+							</button>
+							<button class="btn btn--control" data-step='showNextStep' id="to-end-btn">
+								&gt;&gt;
+							</button>
+						</div>
+						<div class="form__group">
+							<label for="play-speed">Plaing speed</label>
+						    <input type="range" min='200' max="1000" value="300" step="10" id="play-speed">
+						</div>
 						<div class="visualizer__count"  id="steps-count">
 							<span>1/1</span>
 						</div>
-						<button class="btn btn--control" data-step='showNextStep' id="next-btn">
-							&gt;
-						</button>
-						<button class="btn btn--control" data-step='goToEnd' id="to-end-btn">
-							&gt;&gt;
-						</button>
 					</div>
 				</section>
 			</div>

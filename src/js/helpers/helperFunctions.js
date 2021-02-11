@@ -39,6 +39,12 @@ const updateELTextContentSelector = (selector, text) => {
 	if (el) el.textContent = text;
 }
 
+const removeClassesFromElement = (el, ...classNames) => {
+	classNames.forEach(name => {
+		el.classList.remove(name);
+	})
+}
+
 const removeClasses = (className, array) => {
 	if (array) {
 		array.forEach(el => {
@@ -52,4 +58,4 @@ const removeClasses = (className, array) => {
 }
 
 
-export {getRandomNumber, scaleValue, createStepObj, findCheckedInput, updateELTextContent, updateELTextContentSelector, removeClasses};
+export {getRandomNumber, scaleValue, createStepObj, findCheckedInput, updateELTextContent, updateELTextContentSelector, removeClasses, removeClassesFromElement};

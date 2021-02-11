@@ -11,7 +11,7 @@ export default class {
         }
 
         if (classNameToRemove) this.unSelectValue(classNameToRemove);
-        
+
         if (className !== 'sorted')this.unSelectValue(className);
        args.forEach(arg => {
            this.liArray[arg].classList.toggle(className);
@@ -48,8 +48,8 @@ export default class {
         const nodeB = this.liArray[currentPassElIdx];
 
         if (className) {
-            nodeA.classList.add(className);   
-            nodeB.classList.add(className);   
+            nodeA.classList.add(className);
+            nodeB.classList.add(className);
         }
 
         const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;

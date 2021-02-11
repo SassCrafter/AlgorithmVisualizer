@@ -1,12 +1,12 @@
+import { scaleValue } from './helpers/helperFunctions';
 
 export default class {
 	constructor(algo) {
-		// this.algo = algo;
-		// this.algoLen = this.algo.steps.length - 1;
 		this.controls = document.getElementById('visualizer-controls');
 		this.controls.addEventListener('click', this.clickHandler.bind(this));
-		// this.counter = 0;
-		// this.updateUI(this.algo.steps[0]);
+		this.speedInput = this.controls.querySelector('#play-speed');
+		this.speedInput.addEventListener('change', this.changeSpeedHandler.bind(this));
+		//this.speedInput.addEventListener('mousemove', this.changeSpeedHandler.bind(this));
 		this.reset(algo);
 	}
 
@@ -16,9 +16,11 @@ export default class {
 		this.algoLen = this.algo.steps.length - 1;
 		this.counter = 0;
 		this.updateUI(this.algo.steps[0]);
+		this.playSpeed = 300;
 	}
 
 	showNextStep() {
+		if (this.playing) return;
 		this.counter += 1;
 		if (this.counter > this.algoLen) {
 			this.counter = this.algoLen;
@@ -28,24 +30,26 @@ export default class {
 		this.updateUI(currentStep);
 	}
 
-	showPrevStep() {
-		let currentStep;
-		if (this.counter < 0) {
-			this.counter = 0;
-			return;
-		};
-		if (this.algo.steps[this.counter].explanation === 'Swap') {
-			currentStep = this.algo.steps[this.counter];
-		}else {
-			this.counter -= 1;
-			currentStep = this.algo.steps[this.counter];
-		}
-		
-		this.updateUI(currentStep);
-		this.counter -= 1;
-	}
+	// showPrevStep() {
+	// 	this.counter -= 1;
+	// 	//let currentStep;
+	// 	if (this.counter <= 0) {
+	// 		this.counter = 0;
+	// 		return;
+	// 	};
+	// 	// if (this.algo.steps[this.counter].explanation === 'Swap') {
+	// 	// 	currentStep = this.algo.steps[this.counter];
+	// 	// }else {
+	// 	// 	this.counter -= 1;
+	// 	// 	currentStep = this.algo.steps[this.counter];
+	// 	// }
+	// 	const currentStep = this.algo.steps[this.counter];
+	// 	this.updateUI(currentStep);
+	// 	//this.counter -= 1;
+	// }
 
 	goToStart() {
+		clearInterval(this.interval);
 		this.playAlgoToStart(this.counter, 0);
 		this.counter = 0;
 		const currentStep = this.algo.steps[0];
@@ -53,6 +57,7 @@ export default class {
 	}
 
 	goToEnd() {
+		if (this.playing) return;
 		this.playAlgoToEnd(this.counter, this.algoLen);
 	}
 
@@ -64,10 +69,12 @@ export default class {
 	}
 
 	playAlgoToEnd(start, end) {
+		this.playing = true;
 		let count = start;
 		this.interval = setInterval(() => {
 			if (count === end) {
 				clearInterval(this.interval);
+				this.playing = false;
 			}
 			const currentStep = this.algo.steps[count];
 			this.updateUI(currentStep);
@@ -75,8 +82,7 @@ export default class {
 			if (this.counter < this.algoLen) {
 				this.counter++;
 			}
-			console.log(count);
-		}, 300);
+		}, this.playSpeed);
 	}
 
 	updateStepsCounterUI(stepObj) {
@@ -92,8 +98,17 @@ export default class {
 	}
 
 
+	changeSpeedHandler(e) {
+		const value = e.target.value;
+		const scaledValue = scaleValue(value, [200, 1000], [1000, 50]);
+		this.playSpeed = +scaledValue;
+		clearInterval(this.interval);
+		this.playAlgoToEnd(this.counter, this.algoLen);
+	}
+
+
 	clickHandler(e) {
 		const method = e.target.dataset.step;
-		this[method]();
+		if (method) this[method]();
 	}
 }

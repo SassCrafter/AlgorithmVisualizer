@@ -3,6 +3,7 @@ import Array from './Array';
 import VisualizerControls from './VisualiserControls';
 import BubbleSort from './Algorithms/BubbleSort';
 import SelectionSort from './Algorithms/SelectionSort';
+import InsertionSort from './Algorithms/InsertionSort';
 import { findCheckedInput, updateELTextContentSelector } from './helpers/helperFunctions';
 import '../sass/style.scss';
 
@@ -14,6 +15,7 @@ class App extends Component {
 		this.topics = {
 			bubbleSort: BubbleSort,
 			selectionSort: SelectionSort,
+			insertionSort: InsertionSort
 		};
 		this.topic = this.topics.bubbleSort;
 		this.controls = new VisualizerControls(new this.topic(this.arr));
