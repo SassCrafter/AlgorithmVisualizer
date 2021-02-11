@@ -7,7 +7,7 @@ export default class extends Algo {
 		this.steps = [
 			{
 				explanation: 'Starting Selection Sort',
-				action: null,
+				action: this.removeClasses.bind(this),
 			},
 			{
 				explanation: 'The idea behind selection sort is that you loop through the input array linearly, selecting the first smallest element, and then swap it to the first position.',
@@ -30,13 +30,13 @@ export default class extends Algo {
 		 let arr = this.arr.array;
 		 const len = arr.length;
 	    for (let i = 0; i < len; i++) {
-	    	this.steps.push(createStepObj('Select minimum value', this.liArray[i], null, this.selectValue.bind(this, 'orange-bg', i)));
+	    	this.steps.push(createStepObj('Select minimum value', this.liArray[i], null, this.selectValue.bind(this, 'orange-bg', null, i)));
 			let min = i;
 	        for (let j = i + 1; j < len; j++) {
-				this.steps.push(createStepObj('Comparing', this.liArray[j], null, this.selectValue.bind(this, 'selected', j)));
+				this.steps.push(createStepObj('Comparing', this.liArray[j], null, this.selectValue.bind(this, 'selected', null, j)));
 	            if (arr[min] > arr[j]) {
 					min = j;
-					this.steps.push(createStepObj('Found new minimum value', this.liArray[min], null, this.selectValue.bind(this, 'orange-bg', min)));
+					this.steps.push(createStepObj('Found new minimum value', this.liArray[min], null, this.selectValue.bind(this, 'orange-bg', null, min)));
 	            }
 	        }
 	        if (min !== i) {

@@ -1,14 +1,13 @@
+import Algo from './Algo';
 import { createStepObj } from '../helpers/helperFunctions';
 
-export default class {
+export default class extends Algo {
 	constructor(arr) {
-		this.arrObj = arr;
-		this.arr = arr.array;
-		this.liArray = arr.liArray;
+		super(arr);
 		this.steps = [
 			{
 				explanation: 'Starting Bubble Sort',
-				action: null,
+				action: this.removeClasses.bind(this),
 			},
 			{
 				explanation: 'For each pass, we will move left to right swapping adjacent elements as needed. Each pass moves the next largest element into its final position.',
@@ -29,28 +28,23 @@ export default class {
 
 	sort(start = 0) {
 		let swapped;
-		const arr = this.arr;
+		let arr = this.arr.array;
 		let counter = arr.length - 1;
 	    do {
 	         swapped = false;
 	        for (let i = start; i < counter; i++) {
-				this.steps.push(createStepObj('Compare elements', this.liArray[i], this.liArray[i + 1], this.arrObj.compareTwoValues));
+				this.steps.push(createStepObj('Compare elements', i, i + 1, this.selectValue.bind(this, 'selected', 'orange-bg', i, i + 1)));
 	            if (arr[i] > arr[i + 1]) {
-					this.steps.push(createStepObj('Swap', this.liArray[i], this.liArray[i + 1], this.arrObj.swapTwoElements));
+					this.steps.push(createStepObj('Swap', i, i + 1, this.swap.bind(this, i, i + 1, 'orange-bg')));
 	                const temp = arr[i];
 	                arr[i] = arr[i + 1];
 					arr[i + 1] = temp;
-					const tempLi = this.liArray[i];
-					this.liArray[i] = this.liArray[i + 1];
-					this.liArray[i + 1] = tempLi;
 	                swapped = true;
 				}
 			}
-			//this.steps[counter + 4].sorted = true;
+			this.steps.push(createStepObj('Done this pass, moving to the next one', counter, null, this.selectValue.bind(this, 'sorted', null, counter)));
 			counter -= 1;
-			this.steps.push(createStepObj('Done this pass, moving to the next one'));
 		} while(swapped);
-		console.log(this.steps);
-		this.steps.push(createStepObj('Done sorting'));
+		this.steps.push(createStepObj('Done sorting', null, null, this.doneSorting.bind(this)));
 	}
 }

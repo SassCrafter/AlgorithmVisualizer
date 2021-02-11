@@ -11,21 +11,10 @@ export default class extends Component {
         this.liArray = [];
         this.form = document.getElementById('visualizer-inputs-form');
         this.init();
-        // this.form = document.getElementById('visualizer-inputs-form');
-        // this.form.addEventListener('submit', this.formSubmitHandler.bind(this));
     }
 
     setArray(value) {
         this.array = value;
-    }
-
-
-    formSubmitHandler(e) {
-        e.preventDefault();
-        // const size = this.form.querySelector('#array-size').value;
-        // const layout = this.form.querySelector('#array-layout').value;
-        // this.populate(+size);
-        // this.render();
     }
 
     init() {
@@ -69,32 +58,6 @@ export default class extends Component {
             li.innerHTML = `<h5>${i}</h5>`;
             parent.appendChild(li);
         }
-    }
-
-    compareTwoValues(firstValue, secondValue) {
-        // First remove already compared values classes;
-        if (!firstValue || !secondValue) return;
-        const elementsToClear = Array.from(firstValue.parentElement.children);
-        elementsToClear.forEach(el => el.classList.remove('comparing'));
-        firstValue.classList.add('comparing');
-        secondValue.classList.add('comparing');
-    }
-
-    swapTwoElements(firstEl, secondEl) {
-        if (!firstEl || !secondEl) return
-        firstEl.classList.add('swap');
-        secondEl.classList.add('swap');
-        firstEl.parentElement.insertBefore(secondEl, firstEl);
-        setTimeout(() => {
-            firstEl.classList.remove('swap', 'comparing');
-            secondEl.classList.remove('swap', 'comparing');
-        }, 300);
-    }
-
-
-
-    selectValue(val) {
-        console.log(val);
     }
 
 

@@ -5,12 +5,14 @@ export default class {
         this.liArray = this.arr.liArray;
         this.isDone = false;
     }
-    selectValue(className, ...args) {
+    selectValue(className, classNameToRemove, ...args) {
         if (this.isDone) {
             removeClasses('sorted', this.liArray);
         }
-       this.unSelectValue(className);
-       //console.log(args);
+
+        if (classNameToRemove) this.unSelectValue(classNameToRemove);
+        
+        if (className !== 'sorted')this.unSelectValue(className);
        args.forEach(arg => {
            this.liArray[arg].classList.toggle(className);
        });
@@ -23,6 +25,7 @@ export default class {
         })
     }
 
+
     doneSorting() {
         this.isDone = true;
         this.liArray.forEach(li => {
@@ -31,24 +34,34 @@ export default class {
         })
     };
 
-    swap(minElIdx, currentPassElIdx) {
-        //console.log(minElIdx, currentPassElIdx);
+
+    removeClasses() {
+        this.liArray.forEach(li => {
+            li.classList.remove('selected','orange-bg', 'sorted');
+        });
+    }
+
+    swap(minElIdx, currentPassElIdx, className) {
         this.unSelectValue('selected');
-        const liArrayNode = this.liArray[minElIdx].parentNode;
-        // const liArrayNode = this.liArray[minElIdx].parentNode;
-        // //const temp = [...this.liArray][minElIdx];
-        // const minEl = this.liArray[minElIdx];
-        // const currentPassEl = this.liArray[currentPassElIdx];
 
-        // liArrayNode.insertBefore(this.liArray[minElIdx], this.liArray[currentPassElIdx]);
-        // console.log(this.liArray[minElIdx], this.liArray[currentPassElIdx]);
-        // liArrayNode.insertBefore(this.liArray[currentPassElIdx], this.liArray[minElIdx]);
-        // console.log(liArrayNode);
-        // console.log(this.liArray[currentPassElIdx]);
+        const nodeA = this.liArray[minElIdx];
+        const nodeB = this.liArray[currentPassElIdx];
 
-        // this.liArray = document.querySelectorAll('.visualizer__item');
-        // console.log(this.liArray);
+        if (className) {
+            nodeA.classList.add(className);   
+            nodeB.classList.add(className);   
+        }
+
+        const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;
+
+
+        // Move minNode before currentPassNode
+        nodeB.parentNode.insertBefore(nodeA, nodeB);
+
+        // Move currentPassNode before minNode
+        nodeA.parentNode.insertBefore(nodeB, siblingA);
+
+        this.liArray = document.querySelectorAll('.visualizer__item');
+
     }
 }
-
-//this.liArray[startElIdx].parentNode
